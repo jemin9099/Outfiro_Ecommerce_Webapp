@@ -75,4 +75,4 @@ onMounted(() => {
         <Pagination v-if="store.orders?.length > 0"/>
     </div>
 </template>
-<style lang="scss" scoped></style>
+<style  scoped></style>

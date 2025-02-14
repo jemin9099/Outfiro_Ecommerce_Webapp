@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import { ref , defineProps} from 'vue';
 import { useRouter } from 'vue-router';
 import {useSidebarStore} from '@/stores/sidebar'
