@@ -5,10 +5,10 @@ import AddressModel from '@/views/shop/account/addressModel.vue'
 import { ref } from 'vue';
 import Orders from './orders.vue';
 const tab = ref('order')
-const addressModel = ref()
+const addressModels = ref()
 </script>
 <template>
-    <AddressModel ref="addressModel"/>
+    <AddressModel ref="addressModels"/>
     <div class="flex flex-col m-3">
         <div class="relative  w-full overflow-hidden">
             <img :src="accountImg" alt="" class="w-full h-auto object-contain aspect-4/3">

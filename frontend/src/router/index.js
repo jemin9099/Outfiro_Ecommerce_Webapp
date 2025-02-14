@@ -30,7 +30,7 @@ const router = createRouter({
       component: () => import('../views/shop/account/index.vue'),
       meta:{
         title:'Account Page',
-        requiresAuth: true,
+        requiresAuth: false,
         isAdmin: false
       }
     },
@@ -149,6 +149,10 @@ router.beforeEach((to, from, next) => {
   // If the route requires authentication and the user is not logged in
   else if (to.meta.requiresAuth && !isLoggedIn) {
     next('/login'); // Redirect to login page if not authenticated
+  }
+
+  else if(to.path ==='/shop/account' && !isLoggedIn){
+    next('/login')
   }
   // If the route requires admin role and the user is not an admin
   else if (to.meta.isAdmin && !isAdmin) {

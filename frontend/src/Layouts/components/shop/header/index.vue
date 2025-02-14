@@ -17,8 +17,8 @@ const router = useRouter()
 
 const avatarName = () => {
     const first = userStore.currentUser?.userName.split(' ')[0].charAt(0)
-    const last = userStore.currentUser?.userName.split(' ')[1].charAt(0)
-    return `${first}${last}`
+    const last = userStore.currentUser?.userName.split(' ')[1]?.charAt(0)
+    return `${first}${last?last:''}`
 }
 
 const handleLogout = () => {
