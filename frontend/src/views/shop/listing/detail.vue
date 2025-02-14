@@ -24,8 +24,8 @@ const percentage = (selling_price, total_price) => {
 
 const avatarName = (name) => {
     const first = name.split(' ')[0].charAt(0)
-    const last = name.split(' ')[1].charAt(0)
-    return `${first}${last}`
+    const last = name.split(' ')[1]?.charAt(0)
+    return `${first}${last?last:''}`
 }
 
 const submitReview = (id, updateId) => {
