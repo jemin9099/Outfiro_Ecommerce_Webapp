@@ -37,7 +37,7 @@ const addressModels = ref()
                     <transition name="fade" mode="out-in">
                         <div role="tabpanel" class="p-3 duration-300  w-full" v-show="tab === 'address'">
                           <div class="text-end">
-                            <button class=" px-3 py-2 bg-black mb-3 rounded-md text-white font-semibold" @click="addressModel.open()">
+                            <button class=" px-3 py-2 bg-black mb-3 rounded-md text-white font-semibold" @click="addressModels.open()">
                                 Add New Address
                             </button>
                           </div>
