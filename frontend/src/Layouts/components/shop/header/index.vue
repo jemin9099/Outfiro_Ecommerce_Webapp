@@ -121,7 +121,7 @@ onMounted(() => {
                                 </li>
                                 <hr>
                                 <li class="px-3 py-2 transition-colors duration-300 hover:bg-gray-200">
-                                    <RouterLink to="/shop/account" class="flex items-center">
+                                    <RouterLink to="/account" class="flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="me-2" width="20" height="20"
                                             viewBox="0 0 24 24">
                                             <title>account</title>

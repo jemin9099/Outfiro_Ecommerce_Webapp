@@ -17,7 +17,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/shop/listing',
+      path: '/listing',
       name: 'listing',
       component: listing,
       // component: () => import('../views/shop/listing/index.vue'),
@@ -28,7 +28,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/shop/account',
+      path: '/account',
       name: 'address',
       component: () => import('../views/shop/account/index.vue'),
       meta:{
@@ -38,7 +38,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/shop/checkout',
+      path: '/checkout',
       name: 'checkout',
       component: () => import('../views/shop/checkout/index.vue'),
       meta:{
@@ -48,7 +48,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/shop/orderSuccess',
+      path: '/orderSuccess',
       name: 'order-success',
       component: () => import('../views/shop/orderSuccess.vue'),
       meta:{
@@ -58,7 +58,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/shop/paymentSuccess',
+      path: '/paymentSuccess',
       name: 'payment-success',
       component: () => import('../views/shop/paymentSuccess.vue'),
       meta:{
@@ -68,7 +68,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/shop/search',
+      path: '/search',
       name: 'search',
       component: () => import('../views/shop/search.vue'),
       meta:{

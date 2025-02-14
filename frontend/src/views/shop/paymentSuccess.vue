@@ -21,7 +21,7 @@ const router = useRouter()
                         confirmation email.</p>
                 </div>
                 <div class="my-3">
-                    <button class="w-full bg-black font-semibold text-white py-2  rounded-md" @click="router.push('/shop/account')">View Orders</button>
+                    <button class="w-full bg-black font-semibold text-white py-2  rounded-md" @click="router.push('/account')">View Orders</button>
                 </div>
             </div>
         </div>

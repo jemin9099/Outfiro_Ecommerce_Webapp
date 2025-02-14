@@ -5,27 +5,27 @@ const headerMenu = [
     },
     {
         name: 'Search',
-        link: '/shop/search'
+        link: '/search'
     },
     {
         name: 'Men',
-        link: '/shop/listing'
+        link: '/listing'
     },
     {
         name: 'Women',
-        link: '/shop/listing'
+        link: '/listing'
     },
     {
         name: 'Kids',
-        link: '/shop/listing'
+        link: '/listing'
     },
     {
         name: 'Accessories',
-        link: '/shop/listing'
+        link: '/listing'
     },
     {
         name: 'Footwear',
-        link: '/shop/listing'
+        link: '/listing'
     },
 ]
 

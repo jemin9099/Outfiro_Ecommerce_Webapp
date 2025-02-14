@@ -77,7 +77,7 @@ onMounted(() => {
             </div>
         </div>
         <button class="w-full py-2 mx-4 mt-3 bg-black font-semibold text-white rounded-md" v-if="isCheckoutBtn">
-           <RouterLink to="/shop/checkout">
+           <RouterLink to="/checkout">
             Checkout
            </RouterLink>
         </button>
@@ -93,7 +93,7 @@ onMounted(() => {
        </div>
        <div>
         <button class="w-full py-2 mx-4 mt-3 bg-black font-semibold text-white rounded-md" v-if="isCheckoutBtn">
-            <RouterLink to="/shop/listing">
+            <RouterLink to="/listing">
              Continue Shopping
             </RouterLink>
          </button>
