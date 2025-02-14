@@ -30,7 +30,7 @@ export const useCartStore = defineStore('cart', () => {
   const addToCart = async (id, qty) => {
     if(userData){
         try {
-        const quantity = 1
+        let quantity = 1
         if (qty) {
           quantity = qty
         }
