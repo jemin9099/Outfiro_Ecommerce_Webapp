@@ -1,9 +1,10 @@
-const express = require('express');
+const express = require('express')
+const authToken = require('../middleware/authToken')
+const router = express.Router()
 
-const auth = express.Router();
-const { register, login } = require('../controllers/auth');
+const {Register , Login , currentUser} = require('../controller/auth')
 
-auth.post('/register', register);
-auth.post('/login', login);
-
-module.exports = auth;
+router.post('/register' , Register)
+router.post('/login' , Login)
+router.get('/current-user' , authToken , currentUser)
+module.exports = router

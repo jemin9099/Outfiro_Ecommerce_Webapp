@@ -1,14 +1,10 @@
+<script setup >
+import Header from '@/Layouts/components/shop/header/index.vue'
+</script>
 <template>
-    <div>
-        Shop Layout
-    </div>
+    <Header/>
     <slot/>
 </template>
-
-<script setup >
-
-</script>
-
 <style scoped>
 
 </style>

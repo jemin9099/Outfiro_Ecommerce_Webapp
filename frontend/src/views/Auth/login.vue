@@ -11,16 +11,32 @@ const inputData = ref({
 })
 
 const handleRegister = async() => {
-    const {data , status} = await axios.post('/auth/login' , inputData.value)
-    if(status === 201) {
+    try{
+        const {data , status } = await axios.post('/auth/login' , inputData.value)
+    
+    if(status === 200) {
         toast("User Login successfully", {
         autoClose: 1000,
         type:'success'
       });
-      router.push('/')
+      localStorage.setItem('userData' , JSON.stringify(data.data))
+      localStorage.setItem('token' , data.token)
+      if(data.data.role === 'admin'){
+        router.push('/admin/dashboard')
+      }
+      else{
+       router.push('/')
+      }
     }   
     else{
         toast("Error While User Loging", {
+        autoClose: 1000,
+        type:'error'
+      });
+    }
+    }
+    catch (error) {
+        toast(error, {
         autoClose: 1000,
         type:'error'
       });
@@ -29,14 +45,14 @@ const handleRegister = async() => {
 </script>
 <template>
     <div class="flex">
-        <div class="bg-black text-white w-1/2 h-[100vh] flex items-center justify-center">
+        <div class="bg-black text-white w-1/2 h-[100vh] items-center justify-center hidden md:flex">
             <div>
                 <h1 class="text-4xl font-extrabold ">Welcome To OutFiro Shopping Site</h1>
                 <p class="mt-2 text-xl text-center">Shop Smart, Live Better – Your One-Stop Online Store!</p>
             </div>
         </div>
-        <div class=" w-1/2 h-[100vh] flex items-center justify-center">
-            <div class="w-4/5 space-x-12">
+        <div class=" md:w-1/2 h-[100vh] w-full flex items-center justify-center">
+            <div class="w-4/5 ">
                 <h1 class="text-4xl text-center font-extrabold">
                     Sign in to your account
                 </h1>
@@ -55,7 +71,7 @@ const handleRegister = async() => {
                         </div>
                     </div>
                     <div>
-                        <button type="submit" class="bg-black font-semibold text-white w-full mt-3 rounded-lg hover:bg-white hover:text-black hover:border border-black py-2">Sign Up</button>
+                        <button type="submit" class="bg-black font-semibold text-white w-full mt-3 rounded-lg hover:bg-white hover:text-black hover:border border-black py-2">Sign In</button>
                     </div>
                 </form>
             </div>

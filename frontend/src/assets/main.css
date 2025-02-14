@@ -1,3 +1,90 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+body {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    background-color: #f9fafb;
+}
+
+/* Container to hold sidebar and main content */
+.container-box {
+    height: 100vh;  /* Full viewport height */
+    width: 100%;
+}
+
+/* Sidebar styles */
+.sidebar {
+    width: 250px;
+    position: fixed;
+    background-color: black;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Main content container */
+.main-content {
+    padding-left: 250px; /* Offset the main content by the sidebar width */
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Navbar styles */
+.navbar {
+    padding: 5px 10px 0px 10px;
+    position: fixed;
+    top: 0;
+    left: 250px; /* Offset the navbar to the right of the sidebar */
+    width: calc(100% - 250px); /* Adjust width to occupy remaining space */
+    z-index: 1;  /* Make sure it appears on top of content */
+}
+
+/* Main section scrollable area */
+.main-section {
+    padding-top: 60px; /* Space for the navbar */
+    padding: 20px;
+    height: calc(100vh - 10px); /* Adjust height to allow for scrolling */
+    overflow-y: scroll;  /* Enable vertical scroll */
+    padding-top: 80px;
+}
+
+/* Media query for small screens (responsive) */
+@media (max-width: 768px) {
+    .container-box {
+        max-width: 100%;
+    }
+    .sidebar {
+        width: 0;  /* Hide the sidebar */
+        transform: translateX(-100%); /* Move the sidebar off-screen */
+        opacity: 0;
+    }
+
+    .main-content {
+        padding-left: 0; /* Remove left margin */
+        width: 100%;
+    }
+
+    .navbar {
+        left: 0;  /* Navbar takes full width on smaller screens */
+        width: 100%; /* Full width of the screen */
+    }
+
+    /* Show the sidebar when a toggle button is clicked (you can add a toggle button for this in HTML) */
+    .sidebar.open {
+        width: 250px;  /* Sidebar will slide in */
+        transform: translateX(0); /* Slide the sidebar in */
+        opacity: 1;
+        z-index: 9999;
+    }
+
+    .main-section {
+        padding-top: 80px; /* Adjust for navbar on smaller screens */
+    }
+}
+
+
+

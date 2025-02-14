@@ -1,18 +1,23 @@
 import axios from 'axios';
 
+const token = localStorage.getItem('token')
 // Create an instance of axios with your default configurations
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8000/api', // Your base URL
+  baseURL: 'http://localhost:5000/api', // Your base URL
   timeout: 10000,                    // Request timeout in ms
-  headers: {
-    'Content-Type': 'application/json',
-    // Add other headers if necessary (e.g. Authorization)
-  }
+  // headers: {
+  //   'Content-Type': 'application/json',
+  //   // Add other headers if necessary (e.g. Authorization)
+  // }
 });
 
 // You can add interceptors here if needed
 axiosInstance.interceptors.request.use(
   (config) => {
+    
+    if (token) {
+      config.headers['Authorization'] = `JWT ${token}`;
+    }
     // You can modify the request here if needed (e.g., add auth token)
     return config;
   },
