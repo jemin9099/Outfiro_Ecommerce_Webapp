@@ -3,6 +3,7 @@ import home from '../views/index.vue'
 import axios from "@/axios"
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  mode:'history',
   routes: [
     {
       path: '/',
@@ -149,10 +150,6 @@ router.beforeEach((to, from, next) => {
   // If the route requires authentication and the user is not logged in
   else if (to.meta.requiresAuth && !isLoggedIn) {
     next('/login'); // Redirect to login page if not authenticated
-  }
-
-  else if(to.path ==='/shop/account' && !isLoggedIn){
-    next('/login')
   }
   // If the route requires admin role and the user is not an admin
   else if (to.meta.isAdmin && !isAdmin) {
