@@ -1,5 +1,5 @@
 <script setup>
-import {useSidebarStore} from '@/stores/sidebar'
+import { useSidebarStore } from '@/stores/sidebar'
 
 const store = useSidebarStore()
 </script>
@@ -25,8 +25,7 @@ const store = useSidebarStore()
             </button>
         </div>
     </div>
-    <div id="Main"
-        class="xl:rounded-r transform  xl:translate-x-0  ease-in-out transition duration-500  bg-black ">
+    <div id="Main" class="xl:rounded-r transform  xl:translate-x-0  ease-in-out transition duration-500  bg-black ">
         <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
 
         <div class="hidden xl:flex justify-start p-6 items-center space-x-3">
@@ -59,22 +58,52 @@ const store = useSidebarStore()
                 </svg>
                 <p class="text-base leading-4 ">Dashboard</p>
             </button>
-            <button
-                class=" w-full   focus:outline-none text-white focus:text-indigo-400  py-2 rounded ">
+            <button class=" w-full   focus:outline-none text-white focus:text-indigo-400  py-2 rounded ">
                 <RouterLink to="/admin/products" class=" space-x-6 flex jusitfy-start items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="fill-white " width="24" height="24" viewBox="0 0 24 24" ><title>basket</title><path d="M5.5,21C4.72,21 4.04,20.55 3.71,19.9V19.9L1.1,10.44L1,10A1,1 0 0,1 2,9H6.58L11.18,2.43C11.36,2.17 11.66,2 12,2C12.34,2 12.65,2.17 12.83,2.44L17.42,9H22A1,1 0 0,1 23,10L22.96,10.29L20.29,19.9C19.96,20.55 19.28,21 18.5,21H5.5M12,4.74L9,9H15L12,4.74M12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17A2,2 0 0,0 14,15A2,2 0 0,0 12,13Z" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="fill-white " width="24" height="24"
+                        viewBox="0 0 24 24">
+                        <title>basket</title>
+                        <path
+                            d="M5.5,21C4.72,21 4.04,20.55 3.71,19.9V19.9L1.1,10.44L1,10A1,1 0 0,1 2,9H6.58L11.18,2.43C11.36,2.17 11.66,2 12,2C12.34,2 12.65,2.17 12.83,2.44L17.42,9H22A1,1 0 0,1 23,10L22.96,10.29L20.29,19.9C19.96,20.55 19.28,21 18.5,21H5.5M12,4.74L9,9H15L12,4.74M12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17A2,2 0 0,0 14,15A2,2 0 0,0 12,13Z" />
+                    </svg>
                     <p class="text-base leading-4 ">Products</p>
+                </RouterLink>
+            </button>
+            <button class=" w-full   focus:outline-none text-white focus:text-indigo-400  py-2 rounded ">
+                <RouterLink to="/admin/categories" class=" space-x-6 flex jusitfy-start items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="fill-white " width="24" height="24"
+                        viewBox="0 0 24 24">
+                        <title>shape</title>
+                        <path
+                            d="M11,13.5V21.5H3V13.5H11M12,2L17.5,11H6.5L12,2M17.5,13C20,13 22,15 22,17.5C22,20 20,22 17.5,22C15,22 13,20 13,17.5C13,15 15,13 17.5,13Z" />
+                    </svg>
+                    <p class="text-base leading-4 ">Categories</p>
+                </RouterLink>
+            </button>
+            <button class=" w-full   focus:outline-none text-white focus:text-indigo-400  py-2 rounded ">
+                <RouterLink to="/admin/brands" class=" space-x-6 flex jusitfy-start items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="fill-white " width="24" height="24" viewBox="0 0 24 24">
+                        <title>tag</title>
+                        <path
+                            d="M5.5,7A1.5,1.5 0 0,1 4,5.5A1.5,1.5 0 0,1 5.5,4A1.5,1.5 0 0,1 7,5.5A1.5,1.5 0 0,1 5.5,7M21.41,11.58L12.41,2.58C12.05,2.22 11.55,2 11,2H4C2.89,2 2,2.89 2,4V11C2,11.55 2.22,12.05 2.59,12.41L11.58,21.41C11.95,21.77 12.45,22 13,22C13.55,22 14.05,21.77 14.41,21.41L21.41,14.41C21.78,14.05 22,13.55 22,13C22,12.44 21.77,11.94 21.41,11.58Z" />
+                    </svg>
+                    <p class="text-base leading-4 ">Brand</p>
                 </RouterLink>
             </button>
             <button
                 class="flex jusitfy-start items-center w-full  space-x-6 focus:outline-none text-white focus:text-indigo-400 py-2  rounded ">
                 <RouterLink to="/admin/orders" class=" space-x-6 flex jusitfy-start items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="fill-white " width="24" height="24" viewBox="0 0 24 24"><title>check-decagram-outline</title><path d="M23 12L20.6 9.2L20.9 5.5L17.3 4.7L15.4 1.5L12 3L8.6 1.5L6.7 4.7L3.1 5.5L3.4 9.2L1 12L3.4 14.8L3.1 18.5L6.7 19.3L8.6 22.5L12 21L15.4 22.5L17.3 19.3L20.9 18.5L20.6 14.8L23 12M18.7 16.9L16 17.5L14.6 19.9L12 18.8L9.4 19.9L8 17.5L5.3 16.9L5.5 14.1L3.7 12L5.5 9.9L5.3 7.1L8 6.5L9.4 4.1L12 5.2L14.6 4.1L16 6.5L18.7 7.1L18.5 9.9L20.3 12L18.5 14.1L18.7 16.9M16.6 7.6L18 9L10 17L6 13L7.4 11.6L10 14.2L16.6 7.6Z" /></svg>
-                <p class="text-base leading-4 ">Orders</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="fill-white " width="24" height="24"
+                        viewBox="0 0 24 24">
+                        <title>check-decagram-outline</title>
+                        <path
+                            d="M23 12L20.6 9.2L20.9 5.5L17.3 4.7L15.4 1.5L12 3L8.6 1.5L6.7 4.7L3.1 5.5L3.4 9.2L1 12L3.4 14.8L3.1 18.5L6.7 19.3L8.6 22.5L12 21L15.4 22.5L17.3 19.3L20.9 18.5L20.6 14.8L23 12M18.7 16.9L16 17.5L14.6 19.9L12 18.8L9.4 19.9L8 17.5L5.3 16.9L5.5 14.1L3.7 12L5.5 9.9L5.3 7.1L8 6.5L9.4 4.1L12 5.2L14.6 4.1L16 6.5L18.7 7.1L18.5 9.9L20.3 12L18.5 14.1L18.7 16.9M16.6 7.6L18 9L10 17L6 13L7.4 11.6L10 14.2L16.6 7.6Z" />
+                    </svg>
+                    <p class="text-base leading-4 ">Orders</p>
                 </RouterLink>
             </button>
         </div>
-        
+
     </div>
 </template>
-<style  scoped></style>
+<style scoped></style>

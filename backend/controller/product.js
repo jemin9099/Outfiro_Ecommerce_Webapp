@@ -76,7 +76,7 @@ const allProduct = async (req, res) => {
     const to = end < totalProducts ? end : totalProducts
 
     // Fetch products based on filters ,sorting and pagination
-    const products = await product.find(filter).sort(sortOption).skip(skip).limit(limit).lean().exec();
+    const products = await product.find(filter).populate("category").populate("brand").sort(sortOption).skip(skip).limit(limit).lean().exec();
 
     
     res.status(200).json({
@@ -84,7 +84,7 @@ const allProduct = async (req, res) => {
       message: "All products",
       data: products,
       pagination: {
-        totalProducts,
+        total: totalProducts,
         currentPage: page,
         totalPages: Math.ceil(totalProducts / limit),
         perPage: limit,

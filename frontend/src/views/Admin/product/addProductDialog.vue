@@ -1,12 +1,17 @@
 <script setup>
-import { ref, defineExpose, defineEmits } from 'vue';
+import { ref, defineExpose, defineEmits, onMounted } from 'vue';
 import axios from '@/axios'
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
-const categoryData = ['Men', 'Women', 'Kids', 'Accessories', 'Footwear']
-const brandData = ['Nike', 'Adidas', 'Puma', "Levi's", 'Zara', 'H&M']
+import { useCategoryStore } from '@/stores/category';
+import CategoryMenu from '@/components/categoryMenu.vue';
+import BrandMenu from '@/components/brandMenu.vue';
+const store = useCategoryStore()
+const openCategoryMenu = ref(false)
+const showSelectedCategoryName = ref()
+const initialCategory = ref()
 const dialog = ref(false)
-const previewImg = ref([])
+const previewImg = ref()
 const selectedImg = ref()
 const dialogTitle = ref()
 const isUpdate = ref(false)
@@ -29,7 +34,22 @@ const open = (product) => {
         Object.keys(product).forEach((key) => {
             inputData.value[key] = product[key]
         })
-        previewImg.value = [product.image]
+        const findParentCategory = (category) => {             
+            if (category._id === product.category._id) {
+                initialCategory.value = category                
+            }
+            else {
+                if (category.subCategory.length > 0) {
+                    return category.subCategory.find((sub) => {
+                        return findParentCategory(sub)
+                    })
+                }
+            }
+        }
+        store.categories.find((category) => {
+            return findParentCategory(category)
+        })
+        previewImg.value = product.image
     }
     else {
         isUpdate.value = false
@@ -44,7 +64,7 @@ const onChange = (event) => {
 
     const reader = new FileReader();
     reader.onload = () => {
-        previewImg.value.push(reader.result);
+        previewImg.value = reader.result;
     };
     reader.readAsDataURL(file);
 
@@ -60,11 +80,12 @@ const handleSubmit = async () => {
     productData.append('salling_price', inputData.value.salling_price);
     productData.append('stock', inputData.value.stock);
     productData.append('file', selectedImg.value);
+    
 
     if (isUpdate.value) {
-    const { data, status } = await axios.put('/products/'+inputData.value._id, productData);
+        const { data, status } = await axios.put('/products/' + inputData.value._id, productData);
 
-    if (status === 200) {
+        if (status === 200) {
             toast("Product Updated successfully", {
                 autoClose: 1000,
                 type: 'success'
@@ -121,6 +142,9 @@ const handleSubmit = async () => {
     }
 };
 defineExpose({ open })
+onMounted(() => {
+    store.getCategories()
+})
 </script>
 <template>
     <div class="fixed z-10 overflow-y-auto top-0 h-full w-full left-0 " :class="dialog ? '' : 'hidden'" id="modal">
@@ -148,19 +172,23 @@ defineExpose({ open })
                                 <div class="grid grid-cols-2 gap-4">
                                     <div>
                                         <label class="font-medium text-gray-800">Category</label>
-                                        <select class="w-full outline-none rounded bg-gray-100 p-3 mt-2 mb-3"
-                                            v-model="inputData.category" required>
-                                            <option v-for="(category, index) in categoryData" :key="index"
-                                                :value="category">{{ category }}</option>
-                                        </select>
+                                        <div class="relative">
+                                            <div class="w-full outline-none rounded bg-gray-100 p-2 mt-2 mb-3"
+                                                @click="openCategoryMenu = !openCategoryMenu">
+                                                <span v-if="showSelectedCategoryName">{{ showSelectedCategoryName
+                                                    }}</span>
+                                                <span class="text-gray-400" v-else>{{ 'Select Category' }}</span>
+                                            </div>
+                                            <div class="w-full border rounded-md shadow-md bg-white p-2 mt-2 mb-3  z-10 top-10 absolute category-box"
+                                                :class="openCategoryMenu ? 'show' : ''">
+                                                <CategoryMenu @selected-id="(value) => { inputData.category = value }"
+                                                    @currentCategory="showSelectedCategoryName = $event.name"
+                                                    :initialId="initialCategory" />
+                                            </div>
+                                        </div>
                                     </div>
                                     <div>
-                                        <label class="font-medium text-gray-800">Brand</label>
-                                        <select class="w-full outline-none rounded bg-gray-100 p-3 mt-2 mb-3"
-                                            v-model="inputData.brand" required>
-                                            <option v-for="(brand, index) in brandData" :key="index" :value="brand">
-                                                {{ brand }}</option>
-                                        </select>
+                                        <BrandMenu @selected-id="(value) => { inputData.brand = value }" :initialBrand="inputData.brand" />
                                     </div>
                                 </div>
                                 <div class="grid grid-cols-3 gap-4">
@@ -180,26 +208,31 @@ defineExpose({ open })
                                             v-model="inputData.stock" placeholder="Enter Stock" required />
                                     </div>
                                 </div>
-                                <div>
-                                    <label class="font-medium text-gray-800">Upload Image</label>
-                                    <div class="border border-dashed border-gray-500 relative">
-                                        <input type="file" accept="image/*"
-                                            class="cursor-pointer relative block opacity-0 w-full h-full p-20 z-50"
-                                            @change="onChange" :required="isUpdate ? false : true">
-                                        <div class="text-center p-10 absolute top-0 right-0 left-0 m-auto"
-                                            v-if="!previewImg.length">
-                                            <h4>
-                                                Drop files anywhere to upload
-                                                <br />or
-                                            </h4>
-                                            <p class="">Select Files</p>
-                                        </div>
-                                        <div v-else
-                                            class="text-center p-10 absolute top-0 right-0 left-0 m-auto grid grid-cols-8 gap-4">
-                                            <div v-for="(img, index) in previewImg" :key="index">
-                                                <img :src="img" class="shadow-lg" alt="">
-                                            </div>
-                                        </div>
+                                <label class="font-medium text-gray-800">Upload Image</label>
+                                <div class="flex gap-3">
+                                    <div
+                                        class="w-24 bg-gray-100 h-24 mt-2 mb-5 rounded-xl border border-gray-200 flex items-center relative">
+                                        <input type="file" class="opacity-0 w-full z-10 h-full" @change="onChange"
+                                            :required="updateId ? false : true">
+                                        <svg class="fill-gray-500 w-6 absolute left-[34px] z-0 right-0"
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <title>plus</title>
+                                            <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+                                        </svg>
+                                    </div>
+                                    <div class="w-24 bg-gray-100 h-24 mt-2 mb-5 rounded-xl border border-gray-200 flex items-center relative"
+                                        v-if="previewImg">
+                                        <img :src="previewImg" class="w-[90px] h-[90px] object-contain m-auto" alt="">
+                                        <span
+                                            class="p-1 bg-gray-200 rounded-lg absolute top-[-8px] right-[-8px] cursor-pointer"
+                                            @click="previewImg = null">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 fill-black "
+                                                viewBox="0 0 24 24">
+                                                <title>window-close</title>
+                                                <path
+                                                    d="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z" />
+                                            </svg>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -217,4 +250,17 @@ defineExpose({ open })
         </div>
     </div>
 </template>
-<style scoped></style>
+<style scoped>
+.category-box {
+    transition: all .2s ease;
+    transform: translateY(-20px);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+</style>

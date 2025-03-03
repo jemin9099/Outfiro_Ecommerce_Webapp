@@ -157,16 +157,16 @@ const fetchOrders = async (req, res) => {
     const limit = parseInt(req.query.limit) || 5; // Default to 10 items per page
     const skip = (page - 1) * limit;
 
-    let totalProducts
+    let totalOrder
     if(req.query.isAdmin){
-      totalProducts = await orders.countDocuments()
+      totalOrder = await orders.countDocuments()
     }
     else{
-      totalProducts = await orders.countDocuments({ userId })
+      totalOrder = await orders.countDocuments({ userId })
     }
     const from = (skip + 1);
     let end = (skip + limit) 
-    const to = end < totalProducts ? end : totalProducts
+    const to = end < totalOrder ? end : totalOrder
 
     let allOrder = [];
     if(req.query.isAdmin){
@@ -180,9 +180,9 @@ const fetchOrders = async (req, res) => {
       message: "Orders fetched successfully",
       data: allOrder,
       pagination: {
-        totalProducts,
+        total: totalOrder,
         currentPage: page,
-        totalPages: Math.ceil(totalProducts / limit),
+        totalPages: Math.ceil(totalOrder / limit),
         perPage: limit,
         from:from,
         to:to

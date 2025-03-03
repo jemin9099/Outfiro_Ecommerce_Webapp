@@ -24,12 +24,14 @@ const percentage = (selling_price, total_price) => {
                         </div>
                     </span>
                 </div>
-                <img :src="product.image" alt="Product" class="h-80 w-full object-cover rounded-t-xl" />
+                <div class="overflow-hidden h-72">
+                    <img :src="product.image" alt="Product" class="h-full w-full object-contain rounded-t-xl" />
+                </div>
             </div>
             <div class="px-4 py-3 w-full">
                 <div class="flex items-center justify-between mb-2">
-                    <span class="text-gray-600 mr-3 uppercase text-xs">{{ product.brand }}</span>
-                    <span class="text-gray-600 mr-3 uppercase text-xs">{{ product.category }}</span>
+                    <span class="text-gray-600 mr-3 uppercase text-xs">{{ product.brand.name }}</span>
+                    <span class="text-gray-600 mr-3 uppercase text-xs">{{ product.category.name }}</span>
                 </div>
                 <p class="text-lg font-bold text-black truncate block capitalize">{{ product.title }}</p>
                 <div class="flex items-center ">

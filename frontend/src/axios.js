@@ -3,7 +3,7 @@ import axios from 'axios';
 const token = localStorage.getItem('token')
 // Create an instance of axios with your default configurations
 const axiosInstance = axios.create({
-  baseURL: 'https://outfiro-ecommerce-webapp.onrender.com/api', // Your base URL
+  baseURL: 'http://localhost:5000/api', // Your base URL
   timeout: 10000,                    // Request timeout in ms
   // headers: {
   //   'Content-Type': 'application/json',

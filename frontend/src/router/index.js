@@ -96,7 +96,27 @@ const router = createRouter({
           name:'products',
           component: () => import('../views/Admin/product/index.vue'),
           meta:{
-            title:'Dashboard',
+            title:'products',
+            requiresAuth: true,
+            isAdmin: true
+          },
+        },
+        {
+          path:'categories',
+          name:'categories',
+          component: () => import('../views/Admin/category/index.vue'),
+          meta:{
+            title:'categories',
+            requiresAuth: true,
+            isAdmin: true
+          },
+        },
+        {
+          path:'brands',
+          name:'brands',
+          component: () => import('../views/Admin/brand/index.vue'),
+          meta:{
+            title:'categories',
             requiresAuth: true,
             isAdmin: true
           },

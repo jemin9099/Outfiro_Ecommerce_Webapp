@@ -11,6 +11,8 @@ const cart = require('./routes/cart');
 const address = require('./routes/address');
 const orders = require('./routes/orders');
 const review = require('./routes/review');
+const category = require('./routes/category');
+const brand = require('./routes/brand');
 
 const PORT = process.env.PORT || 5000;
 
@@ -24,6 +26,8 @@ app.use('/api/cart', cart);
 app.use('/api/address', address);
 app.use('/api/orders', orders);
 app.use('/api/review', review);
+app.use('/api/category', category);
+app.use('/api/brand', brand);
 
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri);

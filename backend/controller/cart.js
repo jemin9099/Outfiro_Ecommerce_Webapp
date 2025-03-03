@@ -53,12 +53,15 @@ const fetchCartItems = async (req, res) => {
       return res.status(200).json({ message: "Cart items not found" , data: [] });
     }
 
-    const validatedCartItems = cartItems.products.filter(
+    const validatedCartItems = cartItems?.products?.filter(
       (item) => item.productId
     );
-    if (validatedCartItems.length < cartItems.products.length) {
-      cartItems.products = validatedCartItems;
-      await cartItems.save();
+
+    if(validatedCartItems.length){
+      if (validatedCartItems.length < cartItems?.products?.length) {
+        cartItems.products = validatedCartItems;
+        await cartItems.save();
+      }
     }
 
     const populatedCartItems = validatedCartItems.map((item) => ({

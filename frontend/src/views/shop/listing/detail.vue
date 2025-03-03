@@ -76,7 +76,7 @@ defineExpose({ open });
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 p-5 pt-0" v-if="store.productDetail">
                     <div>
-                        <img :src="store.productDetail.image" class="rounded-lg aspect-square w-full object-cover"
+                        <img :src="store.productDetail.image" class="rounded-lg h-76 w-full object-cover"
                             width="600" height="600" alt="" />
                     </div>
                     <div class="relative">

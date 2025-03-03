@@ -20,7 +20,7 @@ const store = useShopStore()
         <div>
             <div class="flex justify-center items-center md:justify-end">
                <div class="me-3">
-                {{ store.paginationData?.from }} - {{ store.paginationData?.to }} of {{ store.paginationData?.totalProducts }}
+                {{ store.paginationData?.from }} - {{ store.paginationData?.to }} of {{ store.paginationData?.total }}
                </div>
                 <a href="#"
                     class="flex items-center justify-center px-2 py-1 mx-1 text-black capitalize bg-white rounded-md border "
