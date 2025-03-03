@@ -3,7 +3,6 @@ import { ref, watch } from 'vue';
 import slugify from 'slugify'
 import { useCategoryStore } from '@/stores/category';
 import CategoryMenu from '@/components/categoryMenu.vue';
-import { onMounted } from 'vue';
 const store = useCategoryStore()
 const openCategoryMenu = ref(false)
 const showSelectedCategoryName = ref()
