@@ -11,7 +11,7 @@ const searchProducts = async (req, res) => {
                 { title: { $regex: query || '', $options: 'i' } },
                 { description: { $regex: query || '', $options: 'i' } },
             ],
-        });
+        }).populate("category").populate("brand");
         res.status(200).json({ message: "Products fetched successfully", data: products });
     } catch (error) {
         res.status(500).json({ message: error.message });

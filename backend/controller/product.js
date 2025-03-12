@@ -1,6 +1,7 @@
 const product = require("../models/product");
 const cloudinary = require("../config/cloudinary");
-
+const ExcelJS = require('exceljs');
+const mongoose = require('mongoose');
 const addProduct = async (req, res) => {
   try {
     const { title, description, price, category, brand, salling_price, stock } =
@@ -192,4 +193,40 @@ const deleteProduct = async (req, res) => {
     });
   }
 };
-module.exports = { addProduct, allProduct, updateProduct, deleteProduct ,getById};
+
+const exportCsvFile = async (req, res) => {
+  try {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Products');
+    worksheet.columns = [
+      { header: 'Title', key: 'title' },
+      { header: 'Description', key: 'description' },
+      { header: 'Price', key: 'price' },
+      { header: 'Category', key: 'category' },
+      { header: 'Brand', key: 'brand' },
+      { header: 'Salling Price', key: 'salling_price' },
+      { header: 'Stock', key: 'stock' },
+    ];
+    const products = await product.find().lean().exec();
+    const sheetData = products.map((product) => ({
+      title: product.title,
+      description: product.description,
+      price: product.price,
+      category: product.category,
+      brand: product.brand,
+      salling_price: product.salling_price,
+      stock: product.stock,
+    }));
+    worksheet.addRows(sheetData);
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', 'attachment; filename=product.xlsx');
+    await workbook.xlsx.write(res);
+    res.end();
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+}
+module.exports = { addProduct, allProduct, updateProduct, deleteProduct ,getById , exportCsvFile};

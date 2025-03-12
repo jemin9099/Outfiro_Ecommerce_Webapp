@@ -25,7 +25,7 @@ const percentage = (selling_price, total_price) => {
                     </span>
                 </div>
                 <div class="overflow-hidden h-72">
-                    <img :src="product.image" alt="Product" class="h-full w-full object-contain rounded-t-xl" />
+                    <img :src="product.image" alt="Product" class="w-full rounded-t-xl" />
                 </div>
             </div>
             <div class="px-4 py-3 w-full">

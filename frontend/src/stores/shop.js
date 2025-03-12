@@ -12,6 +12,7 @@ export const useShopStore = defineStore('shop', () => {
   const isOpenFilterMenu = ref(false)
   const isOpenSortMenu = ref(false)
   const categoryData = ref()
+  const brandData = ref()
   const selectedSortOption = ref('a-z')
   const filters = ref({
     category: [],
@@ -38,6 +39,13 @@ export const useShopStore = defineStore('shop', () => {
     const { data, status } = await axios.get('/category/all')
     if (status === 200) {
       categoryData.value = data.data
+    }
+  }
+
+  const fetchBrands = async () => {
+    const { data, status } = await axios.get('/brand/all')
+    if (status === 200) {
+      brandData.value = data.data
     }
   }
   const fetchProducts = async () => {
@@ -125,6 +133,20 @@ export const useShopStore = defineStore('shop', () => {
       searchProductData.value = data.data
     }
   }
+
+  const exportProducts = async () => {
+    const { data, status } = await axios.get('/products/exports/excel' ,{ responseType: 'blob' })
+    if (status === 200) {
+      const fileURL = window.URL.createObjectURL(new Blob([data], { type: 'application/vnd.ms-excel' }));
+      const fURL = document.createElement('a');
+      fURL.href = fileURL;
+      fURL.setAttribute('download', 'products.xlsx'); // Add proper file extension
+      document.body.appendChild(fURL);
+      fURL.click();
+      document.body.removeChild(fURL); // Clean up the DOM
+      window.URL.revokeObjectURL(fileURL); // Release memory
+    }
+  }
   watch(
     () => filters.value,
     () => {            
@@ -148,6 +170,8 @@ export const useShopStore = defineStore('shop', () => {
     paginationData,
     searchProductData,
     categoryData,
+    brandData,
+    fetchBrands,
     fetchCategory,
     fetchProducts,
     handleSort,
@@ -156,5 +180,6 @@ export const useShopStore = defineStore('shop', () => {
     fetchReview,
     deleteReview,
     searchProducts,
+    exportProducts
   }
 })

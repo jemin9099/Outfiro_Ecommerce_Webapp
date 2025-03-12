@@ -5,7 +5,6 @@
   import { useShopStore } from '@/stores/shop'
   import Pagination from '@/components/pagination.vue';
   const store = useShopStore()
-  const allProduct = ref()
   const addProduct = ref()
   const deleteProduct = ref()
   watch(store.pagination, () => {
@@ -25,24 +24,14 @@
         </div>
         <div class="flex gap-2">
           <button
-            class="border border-black px-3 text-black font-semibold py-2 flex items-center gap-1 rounded-md hover:bg-black/10"
-            @click="addProduct.open()">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-black" viewBox="0 0 24 24">
-              <title>tray-arrow-up</title>
-              <path
-                d="M2 12H4V17H20V12H22V17C22 18.11 21.11 19 20 19H4C2.9 19 2 18.11 2 17V12M12 2L6.46 7.46L7.88 8.88L11 5.75V15H13V5.75L16.13 8.88L17.55 7.45L12 2Z" />
-            </svg>
-            Import
-          </button>
-          <button
             class="border border-black text-black font-semibold px-3 hover:bg-black/10 py-2 flex items-center gap-1 rounded-md"
-            @click="addProduct.open()">
+            @click="store.exportProducts()">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-black" viewBox="0 0 24 24">
               <title>tray-arrow-down</title>
               <path
                 d="M2 12H4V17H20V12H22V17C22 18.11 21.11 19 20 19H4C2.9 19 2 18.11 2 17V12M12 15L17.55 9.54L16.13 8.13L13 11.25V2H11V11.25L7.88 8.13L6.46 9.55L12 15Z" />
             </svg>
-            Export
+            Export as Excel
           </button>
           <button class="bg-black text-white font-semibold px-3 py-2 rounded-md flex items-center gap-1"
             @click="addProduct.open()">

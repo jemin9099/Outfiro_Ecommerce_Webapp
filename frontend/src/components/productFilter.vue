@@ -1,14 +1,12 @@
 <script setup>
-import VueSimpleRangeSlider from "vue-simple-range-slider";
-import "vue-simple-range-slider/css";
 import { useShopStore } from '@/stores/shop'
-import { computed, onMounted } from "vue";
+import { computed, onMounted , watch } from "vue";
 import { useRoute } from "vue-router";
 const route = useRoute()
 const store = useShopStore()
 
-const handleCategoryChange = (category) => {
-    if (store.filters.category.includes(category._id)) {
+const handleCategoryChange = (category) => {    
+    if (store.filters.category.includes(category._id )) {
         selectAllChildren(category)
     }
     else {
@@ -48,6 +46,14 @@ const brandData = computed(() => {
     );
     
     return uniqueArray
+})
+watch(store.filters.category, () => {    
+    let filterCategory = store.categoryData.filter((category) => {
+        return store.filters.category.includes(category._id)
+    })    
+    handleCategoryChange(filterCategory[0])
+}, {
+    deep: true
 })
 onMounted(() => {
     store.fetchCategory()
